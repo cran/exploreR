@@ -1,0 +1,86 @@
+---
+title: "The How and Why of Simple Tools"
+author: "Michael Coates"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{The How and Why of Simple Tools}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include=FALSE}
+library(exploreR)
+
+```
+
+
+##Introduction
+
+Simple tools is exactly what it sounds like.  Simple features and functions aimed at quickly getting you into dealing directly with your data.  The main design philosphy behind any function that gets created for this package, is that the function should either automate some tedius aspect of coding with R and make it easier to use, or should make it easy to quickly and easily examine the characteristics of your data.
+
+##Convenience Features
+
+Right now, there is really only one convenience feature in simple tools, but its the first function I ever wrote for my personal package.  It's pretty common to experiment with your data, especially when you're trying to work out some new statistical function and how to apply it to the dataset you have.
+
+This process of experimentation often clutters up your workspace to the point where it's difficult to tell what objects you actually need in the workspace.  Occassionally it might be useful to completely reset your workspace.  Right now there are two options for reseting your workspace.  You can completely restart r, which might mean closing your workspace and then reopening it.  Or you might have to press `Ctr+L` to clear your console and then type `rm(list=ls())` to clear out objects from the global environment.
+
+If you're like me, you might load up a bunch of packages into your name space, and completely forget which ones are loaded or whether there are conflicts bugging up your code.  Especially frustrating if you have issues you're trying to work out.  
+  
+The reset function completely resets the workspace without restarting r.  It does this by wiping the console and clearing the global environment.  But it also unloads from your namespace all your loaded packages except those included by default and this package, simpletools.  
+  
+```{r}
+
+reset()
+
+```
+
+##Exploring Data
+
+For me, this is the most frustrating part of any new statistical endeavor.  When I want to quickly and effectively describe some of the characteristics of my data, I usually start by visualizing the distribution of the variables, extracting the regression results between my dependent variable and all possible explanatory variables, and by plotting the collinearity between the DV and various IVs.
+
+These functions were written with that in mind.
+
+The `masslm` function quickly produces a linear model of the Dependent Variable and any other variable in the dataset, it then extracts those features of the linear model that are typically the most useful and then returns a data frame containing the results.
+
+```{r}
+
+sampleData <- iris
+
+head(sampleData)
+
+```
+
+Looking at the structure of this data, if the dependant variable is Sepal.Length, it makes sense that we might be interested in what a regression looks like between Sepal.Length and every other variable except Species (There may be a reason to include Species, but for this example I'll exclude it.
+
+Luckily, `masslm` is a very simple way to get this data.
+
+```{r}
+regressResults <- masslm(sampleData, "Sepal.Length", ignore = "Species")
+
+regressResults
+
+```
+
+
+After this, I usually like to look at a quick regression plot for the Dependant variable and all other possible IVs.  The function for this task is `massregplot`.
+
+```{r}
+massregplot(sampleData, "Sepal.Length", ignore = "Species")
+
+```
+
+
+##Common Data Changes
+
+After I take a close look at my data, I often make some changes to it.  The most common change I make is to standardize one or more variables for easier interpretation.  `standardize` converts variables and makes them more easier to compare to other variables, especially those different in scale.
+
+With `standardize`, there are two types of processes.  The "absolute" method involves converting every variable to a scale from 0 to 1.  When these results are regressed, the coefficients represent the absolute change in the dependent variable as a result of the standardized dependant variable.  The "classic" method revalues each observation to give the variable a mean of 0 and standard deviation of 1.
+
+```{r}
+stand.Petals <- standardize(sampleData, c("Petal.Width", "Petal.Length"))
+
+head(stand.Petals)
+
+```
+

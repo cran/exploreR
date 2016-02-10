@@ -1,0 +1,15 @@
+f188a820faabe24ec591bf20671506ab *DESCRIPTION
+48b650637cbfd5f7fa846568f86e6553 *NAMESPACE
+c79717991cbe0f5c9f9dbff7b3818a07 *R/masslm.R
+61d889c063f278c50d043d65dfff854c *R/massregplot.R
+7c1411adcd7a34c84541685c4b37d13a *R/reset.R
+c0a0732c5bd64ede5d07fd0d12877612 *R/standardize.R
+4f08d55260f65c3057cebac790926ff6 *build/vignette.rds
+7a69a26a9579491d14e626ead9fc6e3a *inst/doc/exploreR.R
+76c498ec0d3e623a4aa69bfef556a2a2 *inst/doc/exploreR.Rmd
+cd8763a1539efd10df0c49af2807b5c1 *inst/doc/exploreR.html
+b83e93b4c737a0c6c5f511ebc96ec387 *man/masslm.Rd
+b7abc91583f7210fef6e9114eca5e7e6 *man/massregplot.Rd
+878038ec76c04262a7a62ac11c89c529 *man/reset.Rd
+b0a5d3a214e11a725788c6c1f9a8de59 *man/standardize.Rd
+76c498ec0d3e623a4aa69bfef556a2a2 *vignettes/exploreR.Rmd
